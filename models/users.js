@@ -13,11 +13,11 @@ let userSchema = mongoose.Schema({
     todolist:[{type: mongoose.Schema.ObjectId, ref:'Todo'}],
 });
 
-// userSchema.pre('save',(next)=>{
-//     console.log(this);
-//     let hashedPassword = bcrypt.hashSync(this.password, saltRounds);
-//     this.password = hashedPassword;
-//     next();
-// });
+userSchema.pre('save',function(next){
+    console.log(this);
+    let hashedPassword = bcrypt.hashSync(this.password, saltRounds);
+    this.password = hashedPassword;
+    next();
+});
 
 module.exports = mongoose.model('User',userSchema);
